@@ -10,23 +10,6 @@ import UIKit
 
 class MasterViewController: UITableViewController {
     
-//    var detailViewController: DetailViewController? = nil
-//    let categories = ["Mathematics", "Marvel Super Heroes", "Science"]
-//    
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        tableView.tableFooterView = UIView()
-//        // Do any additional setup after loading the view, typically from a nib.
-//        
-//        let settings = UIBarButtonItem(title: "Settings", style: .Plain, target: self, action: "didPressSettings:")
-//        self.navigationItem.rightBarButtonItem = settings
-//        if let split = self.splitViewController {
-//            let controllers = split.viewControllers
-//            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-//        }
-//    }
-    
     var detailViewController: DetailViewController? = nil
     
     // variable to hold the different quizzes the user could select
@@ -84,18 +67,6 @@ class MasterViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "showDetail" {
-//            if let indexPath = self.tableView.indexPathForSelectedRow {
-//                let object = categories[indexPath.row]
-//                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-//                controller.detailItem = object
-//                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-//                controller.navigationItem.leftItemsSupplementBackButton = true
-//            }
-//        }
-//    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
