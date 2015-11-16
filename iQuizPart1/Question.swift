@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Question {
+class Question : Object {
     var question: String = ""
     var answers: [String] = [""]
     var correctAnswer: String = ""
@@ -17,5 +18,10 @@ class Question {
         self.question = question
         self.answers = answers
         self.correctAnswer = correctAnswer
+        super.init()
+    }
+    
+    required init() {
+        super.init()
     }
 }

@@ -7,16 +7,21 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Quiz {
+class Quiz : Object {
     var quizTitle: String = ""
     var quizDescription: String = ""
     var quizQuestions: [Question]
-    
     
     init(quizTitle: String, quizDescription: String, quizQuestions: [Question]) {
         self.quizTitle = quizTitle
         self.quizDescription = quizDescription
         self.quizQuestions = quizQuestions
+        super.init()
+    }
+    
+    convenience required init() {
+        self.init(quizTitle: "", quizDescription: "", quizQuestions: [Question()])
     }
 }

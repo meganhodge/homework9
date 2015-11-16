@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43E8844B8E5957F22DD57A09 /* Pods_iQuizPart1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469DE4D37A6835EBFA75BB75 /* Pods_iQuizPart1.framework */; };
 		446356CC1BE8A5C400BA6379 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446356CB1BE8A5C400BA6379 /* AppDelegate.swift */; };
 		446356CE1BE8A5C400BA6379 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446356CD1BE8A5C400BA6379 /* MasterViewController.swift */; };
 		446356D01BE8A5C400BA6379 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446356CF1BE8A5C400BA6379 /* DetailViewController.swift */; };
@@ -55,8 +56,11 @@
 		44972B351BF14ACC001B6BA9 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		44972B361BF14ACC001B6BA9 /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		44972B391BF1A781001B6BA9 /* AnswerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerViewController.swift; sourceTree = "<group>"; };
+		469DE4D37A6835EBFA75BB75 /* Pods_iQuizPart1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iQuizPart1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		523A0BB456FD24375F836594 /* Pods-iQuizPart1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iQuizPart1.release.xcconfig"; path = "Pods/Target Support Files/Pods-iQuizPart1/Pods-iQuizPart1.release.xcconfig"; sourceTree = "<group>"; };
 		9D4267E91BF1C37D0086A54E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9D4267EB1BF1E0DF0086A54E /* FinalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalViewController.swift; sourceTree = "<group>"; };
+		A4617253D663AF068B02E6AD /* Pods-iQuizPart1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iQuizPart1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iQuizPart1/Pods-iQuizPart1.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43E8844B8E5957F22DD57A09 /* Pods_iQuizPart1.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +89,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B2ABFB5E24841C92BCAED0B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				469DE4D37A6835EBFA75BB75 /* Pods_iQuizPart1.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3DF9B4F11F8666A9188603C2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A4617253D663AF068B02E6AD /* Pods-iQuizPart1.debug.xcconfig */,
+				523A0BB456FD24375F836594 /* Pods-iQuizPart1.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		446356BF1BE8A5C300BA6379 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +113,8 @@
 				446356E11BE8A5C500BA6379 /* iQuizPart1Tests */,
 				446356EC1BE8A5C500BA6379 /* iQuizPart1UITests */,
 				446356C91BE8A5C400BA6379 /* Products */,
+				3DF9B4F11F8666A9188603C2 /* Pods */,
+				0B2ABFB5E24841C92BCAED0B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,9 +171,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 446356F21BE8A5C600BA6379 /* Build configuration list for PBXNativeTarget "iQuizPart1" */;
 			buildPhases = (
+				5F45FF63DCE56A458D101773 /* Check Pods Manifest.lock */,
 				446356C41BE8A5C400BA6379 /* Sources */,
 				446356C51BE8A5C400BA6379 /* Frameworks */,
 				446356C61BE8A5C400BA6379 /* Resources */,
+				1B70E67B6A0209B8C639A852 /* Embed Pods Frameworks */,
+				47831756DAA0039B987D4F31 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -268,6 +295,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B70E67B6A0209B8C639A852 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iQuizPart1/Pods-iQuizPart1-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		47831756DAA0039B987D4F31 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iQuizPart1/Pods-iQuizPart1-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5F45FF63DCE56A458D101773 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		446356C41BE8A5C400BA6379 /* Sources */ = {
@@ -420,6 +495,7 @@
 		};
 		446356F31BE8A5C600BA6379 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4617253D663AF068B02E6AD /* Pods-iQuizPart1.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -432,6 +508,7 @@
 		};
 		446356F41BE8A5C600BA6379 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 523A0BB456FD24375F836594 /* Pods-iQuizPart1.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
