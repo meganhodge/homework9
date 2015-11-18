@@ -40,7 +40,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let currentQuestion = self.quizSelected.quizQuestions[questionNumber - 1]
         controller.quizSelected = self.quizSelected
         controller.onQuestion = self.questionNumber
-        controller.gotItRight = (currentQuestion.answers[answerSelected] == currentQuestion.correctAnswer)
+        controller.gotItRight = (currentQuestion.answers[answerSelected] == currentQuestion.answers[Int(currentQuestion.correctAnswer)! - 1])
         controller.numberCorrect = self.totalScore
     }
     

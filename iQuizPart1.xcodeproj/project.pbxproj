@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		43E8844B8E5957F22DD57A09 /* Pods_iQuizPart1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469DE4D37A6835EBFA75BB75 /* Pods_iQuizPart1.framework */; };
+		4444492A1BFC4AC3006F54BE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444449291BFC4AC3006F54BE /* SettingsViewController.swift */; };
 		446356CC1BE8A5C400BA6379 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446356CB1BE8A5C400BA6379 /* AppDelegate.swift */; };
 		446356CE1BE8A5C400BA6379 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446356CD1BE8A5C400BA6379 /* MasterViewController.swift */; };
 		446356D01BE8A5C400BA6379 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446356CF1BE8A5C400BA6379 /* DetailViewController.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		444449291BFC4AC3006F54BE /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		446356C81BE8A5C400BA6379 /* iQuizPart1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iQuizPart1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		446356CB1BE8A5C400BA6379 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		446356CD1BE8A5C400BA6379 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			children = (
 				446356CB1BE8A5C400BA6379 /* AppDelegate.swift */,
 				446356CD1BE8A5C400BA6379 /* MasterViewController.swift */,
+				444449291BFC4AC3006F54BE /* SettingsViewController.swift */,
 				446356CF1BE8A5C400BA6379 /* DetailViewController.swift */,
 				44972B351BF14ACC001B6BA9 /* Question.swift */,
 				44972B361BF14ACC001B6BA9 /* Quiz.swift */,
@@ -356,6 +359,7 @@
 				44972B371BF14ACC001B6BA9 /* Question.swift in Sources */,
 				446356CE1BE8A5C400BA6379 /* MasterViewController.swift in Sources */,
 				446356CC1BE8A5C400BA6379 /* AppDelegate.swift in Sources */,
+				4444492A1BFC4AC3006F54BE /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

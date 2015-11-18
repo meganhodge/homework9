@@ -37,11 +37,10 @@ class MasterViewController: UITableViewController {
 //            //if locallyStoredQuizzes.isValid() {
 //                //self.retrieveData()
 //            //} else {
-                self.retrieveData()
+        
 //            }
-//        
+//
 //        dispatch_async(dispatch_get_main_queue()) {
-//            self.tableView.reloadData()
 //        }
             
         
@@ -53,15 +52,19 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
-        
-        self.retrieveData()
+        self.retrieveData("http://tednewardsandbox.site44.com/questions.json")
     }
 
+    @IBAction func unwindToVC(segue: UIStoryboardSegue) {
+        
+    }
     
     func didPressSettings(sender: AnyObject) {
-        let alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        // segues to settings popover
+        self.performSegueWithIdentifier("settingsSegue", sender: self)
+//        let alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .Alert)
+//        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+//        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -109,14 +112,12 @@ class MasterViewController: UITableViewController {
         return true
     }
     
-    func retrieveData() {
-        Alamofire.request(.GET, "https://tednewardsandbox.site44.com/questions.json").responseJSON {response in
+    func retrieveData(url: String) {
+        Alamofire.request(.GET, url).responseJSON {response in
             switch response.result {
                 // .SUCCESS and .FAILURE come from Alamofire
             case .Success:
                 if let data = response.result.value {
-//                    let realm = try! Realm()
-//                    realm.beginWrite()
                     let swiftyJson = JSON(data) // casts it to SwiftyJSON so that we can process it better
                     let swiftyJsonArray = swiftyJson.array
                     for eachQuiz in swiftyJsonArray! {
@@ -133,8 +134,6 @@ class MasterViewController: UITableViewController {
                             quiz.quizQuestions.append(questionData)
                         }
                         self.quizOptions.append(quiz)
-//                        realm.create(Quiz.self, value: ["quizTitle" : quiz.quizTitle, "quizDescription" : quiz.quizDescription, "quizQuestions" : quiz.quizQuestions])
-//                        try! realm.commitWrite()
                     }
                 }
             case .Failure(let error):

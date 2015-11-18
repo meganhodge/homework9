@@ -31,7 +31,9 @@ class AnswerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.quizQuestion.text = self.quizSelected.quizQuestions[onQuestion - 1].question
+        let currentQuestion = self.quizSelected.quizQuestions[onQuestion - 1]
+        self.quizQuestion.text = currentQuestion.question
+        self.correctAnswer.text = currentQuestion.answers[Int(currentQuestion.correctAnswer)! - 1]
         self.navigationItem.setHidesBackButton(true, animated: true)
         if gotItRight {
             self.numberCorrect++
@@ -39,7 +41,7 @@ class AnswerViewController: UIViewController {
         } else {
             self.rightWrongIndicator.text = "Nooooooo. That is incorrect"
         }
-        self.correctAnswer.text = self.quizSelected.quizQuestions[onQuestion - 1].correctAnswer
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
