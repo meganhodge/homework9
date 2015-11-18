@@ -15,7 +15,8 @@ class MasterViewController: UITableViewController {
     
     var detailViewController: DetailViewController? = nil
     
-    let realm = try! Realm() // from Realm documentation
+//    let realm = try! Realm() // from Realm documentation
+//    let array = try! Realm().objects(Quiz).sorted("quizTitle")
     
     // variable to hold the different quizzes the user could select
     var quizOptions: [Quiz] = []
@@ -26,25 +27,34 @@ class MasterViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        // Realm documentation code, gets the objects
-        dispatch_async(dispatch_queue_create("background", nil)) {
-            let locallyStoredQuizzes = self.realm.objects(Quiz) // locally stored quizzes
-            // if there are locally stored quizzes then we should grab them locally
-            // if there are not then we should get them from the URL
-            // locallyStoredQuizzes is an array of quizzes?
-            if locallyStoredQuizzes > 0 {
-                retrieveData()
-            } else {
-                retrieveData()
-            }
-        }
+//        // Realm documentation code, gets the objects
+//        dispatch_async(dispatch_queue_create("background", nil)) {
+//            let locallyStoredQuizzes = self.realm.objects(Quiz) // locally stored quizzes
+//            // if there are locally stored quizzes then we should grab them locally
+//            // if there are not then we should get them from the URL
+//            // locallyStoredQuizzes is an array of quizzes?
+//            print(locallyStoredQuizzes)
+//            //if locallyStoredQuizzes.isValid() {
+//                //self.retrieveData()
+//            //} else {
+                self.retrieveData()
+//            }
+//        
+//        dispatch_async(dispatch_get_main_queue()) {
+//            self.tableView.reloadData()
+//        }
+            
         
+        //}
+
         let settings = UIBarButtonItem(title: "Settings", style: .Plain, target: self, action: "didPressSettings:")
         self.navigationItem.rightBarButtonItem = settings
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        self.retrieveData()
     }
 
     
@@ -100,11 +110,13 @@ class MasterViewController: UITableViewController {
     }
     
     func retrieveData() {
-        Alamofire.request(.GET, "https://tednewardsandbox.site44.com/questions.json").responseJSON {result in
-            switch result.result {
+        Alamofire.request(.GET, "https://tednewardsandbox.site44.com/questions.json").responseJSON {response in
+            switch response.result {
                 // .SUCCESS and .FAILURE come from Alamofire
             case .Success:
-                if let data = result.result.value {
+                if let data = response.result.value {
+//                    let realm = try! Realm()
+//                    realm.beginWrite()
                     let swiftyJson = JSON(data) // casts it to SwiftyJSON so that we can process it better
                     let swiftyJsonArray = swiftyJson.array
                     for eachQuiz in swiftyJsonArray! {
@@ -113,21 +125,23 @@ class MasterViewController: UITableViewController {
                         quiz.quizDescription = eachQuiz["desc"].stringValue
                         for eachQuestion in eachQuiz["questions"].array! {
                             let question = eachQuestion["text"].stringValue
-                            let correctAnswer = eachQuestion["correctAnswer"].stringValue
-                            let answers = eachQuestion["answers"].array!.map { $0.stringValue } // gets the string value for each of the answers so that the answers array gets stored as an array of strings as opposed to an array of JSON data
-                            quiz.quizQuestions.append(Question(question: question, answers: answers, correctAnswer: correctAnswer))
+                            let correctAnswer = eachQuestion["answer"].stringValue
+                            let questionData = Question(question: question, answers: [], correctAnswer: correctAnswer)
+                            for answerOption in eachQuestion["answers"].array! {
+                                questionData.answers.append(answerOption.stringValue)
+                            }
+                            quiz.quizQuestions.append(questionData)
                         }
                         self.quizOptions.append(quiz)
-                        try! self.realm.write {
-                            self.realm.add(quiz)
-                        }
+//                        realm.create(Quiz.self, value: ["quizTitle" : quiz.quizTitle, "quizDescription" : quiz.quizDescription, "quizQuestions" : quiz.quizQuestions])
+//                        try! realm.commitWrite()
                     }
                 }
             case .Failure(let error):
                 print(error)
             }
+            // needs to load data so that it can be displayed because otherwise it sets up the tableview without the data? displays no cells
+            self.tableView.reloadData()
         }
-        // needs to load data so that it can be displayed because otherwise it sets up the tableview without the data? displays no cells
-        self.tableView.reloadData()
     }
 }

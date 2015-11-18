@@ -9,19 +9,22 @@
 import Foundation
 import RealmSwift
 
-class Question : Object {
-    var question: String = ""
-    var answers: [String] = [""]
-    var correctAnswer: String = ""
+class Question {//: Object {
+//    dynamic var question: String = ""
+//    dynamic var answers: [String] = [""]
+//    dynamic var correctAnswer: String = ""
+     var question: String = ""
+     var answers: [String] = [""]
+     var correctAnswer: String = ""
     
     init(question: String, answers: [String], correctAnswer: String) {
         self.question = question
         self.answers = answers
         self.correctAnswer = correctAnswer
-        super.init()
+        //super.init()
     }
     
-    required init() {
-        super.init()
+    required convenience init() {
+        self.init(question: "", answers: [], correctAnswer: "")
     }
 }

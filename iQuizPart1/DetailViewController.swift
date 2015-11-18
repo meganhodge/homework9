@@ -37,11 +37,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = (segue.destinationViewController as! UINavigationController).topViewController as! AnswerViewController
-            let currentQuestion = self.quizSelected.quizQuestions[questionNumber - 1]
-            controller.quizSelected = self.quizSelected
-            controller.onQuestion = self.questionNumber
-            controller.gotItRight = (currentQuestion.answers[answerSelected] == currentQuestion.correctAnswer)
-            controller.numberCorrect = self.totalScore
+        let currentQuestion = self.quizSelected.quizQuestions[questionNumber - 1]
+        controller.quizSelected = self.quizSelected
+        controller.onQuestion = self.questionNumber
+        controller.gotItRight = (currentQuestion.answers[answerSelected] == currentQuestion.correctAnswer)
+        controller.numberCorrect = self.totalScore
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
