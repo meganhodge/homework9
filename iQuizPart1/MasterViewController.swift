@@ -9,50 +9,51 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
-import RealmSwift
+
+struct defaultKeys {
+    // to access the data in the defaults
+    static let localStorageKey = "LocalStorageKey"
+}
 
 class MasterViewController: UITableViewController {
     
     var detailViewController: DetailViewController? = nil
     
-//    let realm = try! Realm() // from Realm documentation
-//    let array = try! Realm().objects(Quiz).sorted("quizTitle")
-    
     // variable to hold the different quizzes the user could select
     var quizOptions: [Quiz] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
-//        // Realm documentation code, gets the objects
-//        dispatch_async(dispatch_queue_create("background", nil)) {
-//            let locallyStoredQuizzes = self.realm.objects(Quiz) // locally stored quizzes
-//            // if there are locally stored quizzes then we should grab them locally
-//            // if there are not then we should get them from the URL
-//            // locallyStoredQuizzes is an array of quizzes?
-//            print(locallyStoredQuizzes)
-//            //if locallyStoredQuizzes.isValid() {
-//                //self.retrieveData()
-//            //} else {
-        
-//            }
-//
-//        dispatch_async(dispatch_get_main_queue()) {
-//        }
-            
-        
-        //}
-
         let settings = UIBarButtonItem(title: "Settings", style: .Plain, target: self, action: "didPressSettings:")
         self.navigationItem.rightBarButtonItem = settings
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        // we are storing data in this for now
+        // (we should never do this but we are doing this)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        if let firstString = defaults.stringForKey(defaultKeys.localStorageKey) {
+            parseData(firstString)
+            print("GETTING DATA FROM LOCAL STORAGE")
+        } else {
+            retrieveData("http://tednewardsandbox.site44.com/questions.json")
+            print("GETTING DATA FROM URL")
+        }
+        
+        self.refreshControl?.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    func refreshData(refreshControl : UIRefreshControl) {
+        // erases the ones currently set so that the newly refreshed ones can be set
+        self.quizOptions = []
         self.retrieveData("http://tednewardsandbox.site44.com/questions.json")
+        refreshControl.endRefreshing()
     }
 
     @IBAction func unwindToVC(segue: UIStoryboardSegue) {
@@ -62,9 +63,6 @@ class MasterViewController: UITableViewController {
     func didPressSettings(sender: AnyObject) {
         // segues to settings popover
         self.performSegueWithIdentifier("settingsSegue", sender: self)
-//        let alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .Alert)
-//        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-//        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -112,35 +110,48 @@ class MasterViewController: UITableViewController {
         return true
     }
     
+    // gets the data from a url as a string
     func retrieveData(url: String) {
-        Alamofire.request(.GET, url).responseJSON {response in
+        Alamofire.request(.GET, url).responseString() {response in
             switch response.result {
                 // .SUCCESS and .FAILURE come from Alamofire
             case .Success:
                 if let data = response.result.value {
-                    let swiftyJson = JSON(data) // casts it to SwiftyJSON so that we can process it better
-                    let swiftyJsonArray = swiftyJson.array
-                    for eachQuiz in swiftyJsonArray! {
-                        let quiz = Quiz()
-                        quiz.quizTitle = eachQuiz["title"].stringValue
-                        quiz.quizDescription = eachQuiz["desc"].stringValue
-                        for eachQuestion in eachQuiz["questions"].array! {
-                            let question = eachQuestion["text"].stringValue
-                            let correctAnswer = eachQuestion["answer"].stringValue
-                            let questionData = Question(question: question, answers: [], correctAnswer: correctAnswer)
-                            for answerOption in eachQuestion["answers"].array! {
-                                questionData.answers.append(answerOption.stringValue)
-                            }
-                            quiz.quizQuestions.append(questionData)
-                        }
-                        self.quizOptions.append(quiz)
-                    }
+                    // NSUserDefaults is like a dictionary stored on local storage
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setValue(String(data), forKey: defaultKeys.localStorageKey)
+                    defaults.synchronize()
+                    self.parseData(data)
+                    print("SAVING DATA TO LOCAL STORAGE")
                 }
             case .Failure(let error):
                 print(error)
             }
             // needs to load data so that it can be displayed because otherwise it sets up the tableview without the data? displays no cells
             self.tableView.reloadData()
+        }
+    }
+    
+    // takes in data and parses it by converting it to JSON and the parsing
+    func parseData(data: AnyObject) {
+        if let dataFromString = data.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+            let swiftyJson = JSON(data: dataFromString) // casts it to SwiftyJSON so that we can process it better
+            let swiftyJsonArray = swiftyJson.array
+            for eachQuiz in swiftyJsonArray! {
+                let quiz = Quiz()
+                quiz.quizTitle = eachQuiz["title"].stringValue
+                quiz.quizDescription = eachQuiz["desc"].stringValue
+                for eachQuestion in eachQuiz["questions"].array! {
+                    let question = eachQuestion["text"].stringValue
+                    let correctAnswer = eachQuestion["answer"].stringValue
+                    let questionData = Question(question: question, answers: [], correctAnswer: correctAnswer)
+                    for answerOption in eachQuestion["answers"].array! {
+                        questionData.answers.append(answerOption.stringValue)
+                    }
+                    quiz.quizQuestions.append(questionData)
+                }
+                self.quizOptions.append(quiz)
+            }
         }
     }
 }
